@@ -2,10 +2,22 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var path = require('path');
 
 module.exports = {
-    entry: 'index.js',
+    mode: 'production',
+    entry: './src/index.js',
     output: {
         path: path.resolve(__dirname, './dist'),
-        filename: 'index_bundle.js'
+        filename: 'index.[contenthash].js'
     },
-    plugins: [new HtmlWebpackPlugin()]
+    plugins: [new HtmlWebpackPlugin({
+        title: 'My App',
+        template: 'src/assets/index.html'
+    })],
+    module: {
+        rules: [
+            {
+                test: /\.css$/i,
+                use: ["style-loader", "css-loader"],
+            },
+        ],
+    },
 };
